@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="game">
+    
+    <head>
+        <meta charset="UTF-8">
+        <title>Game Catalog</title>
+        <link rel="stylesheet" href="challenge-one.css" type="text/css" />
+        <link rel="stylesheet" href=" https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    </head>
+    
+    <body ng-controller="GameCtrl as game">
+
+        <div class="container">
+            
+            <header>
+                <div class="row" id="divRow">
+            
+                    <div class="col-md-6">
+                        <h1>Video Game Catalog</h1>
+                    </div>
+                    
+                    <div class="row pull-right col-md-6" id="divThree">
+                        <div class="col-md-12">
+                            
+                            <form ng-submit="game.addGame()" name="addGame">
+                                <div class="form-group col-md-6">
+                                    <label for="title">Title of ya videojuego</label>
+                                    <input  type="text" required class="form-control" ng-model="game.title" id="title">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="image">URL to la imagen</label>
+                                    <input type="text" required class="form-control" ng-model="game.image" id="image">
+                                </div>
+
+                                <button ng-disabled="addGame.$invalid" class="btn btn-primary">Put the game on the page</button>
+                            </form>
+                            
+                            <button ng-click="game.removeAllGames()" class="btn btn-danger pull-right">Watch the games disappear</button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3># of games: {{game.games.length}}</h3>
+                <h3>Games</h3>
+                <div class="list-group">
+                    <div ng-repeat="game in game.games | filter: {complete: false}" ng-class="{done: game.complete}" class="list-group-item">
+                        
+                        <div class="pull-right">
+                            <input type="checkbox" ng-checked="game.complete" ng-model="game.complete">
+                        </div>
+                        
+                        {{game.title}} - <img src="{{game.image}}" class="gameTitle"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Gaems that you beat</h3>
+                <div class="list-group">
+                    <div ng-repeat="game in game.games | filter: {complete: true}" ng-class="{done: game.complete}" class="list-group-item">
+                        
+                        <div class="pull-right">
+                            <input type="checkbox" ng-checked="game.complete" ng-model="game.complete">
+                        </div>
+                        
+                            {{game.title}} - <img src="{{game.image}}" class="gameTitle"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script src=" https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+        <script src="challenge-one.js"></script>
+    </body>
+    
+</html>
